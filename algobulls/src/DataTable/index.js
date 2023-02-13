@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Tag,
-  Button,
-  Divider,
-  Popconfirm,
-  Space,
-  Form,
-  Input,
-} from "antd";
+import React, { useState } from "react";
+import { Table, Tag, Button, Popconfirm, Space, Form, Input } from "antd";
+import NavBar from "./NavBar";
 
 const DUMMY_DATA = [
   {
@@ -16,7 +8,7 @@ const DUMMY_DATA = [
     timestampCreated: "2022-12-01 10:00:00",
     title: "Build a website",
     description: "Build a website for a small business",
-    dueDate: "2022-12-15",
+    duedate: "2022-12-15",
     tag: ["website", "business"],
     status: "OPEN",
   },
@@ -25,7 +17,7 @@ const DUMMY_DATA = [
     timestampCreated: "2022-12-01 10:30:00",
     title: "Design a logo",
     description: "Design a logo for a new brand",
-    dueDate: "2022-12-20",
+    duedate: "2022-12-20",
     tag: ["logo", "branding"],
     status: "OPEN",
   },
@@ -35,6 +27,14 @@ const DataTable = () => {
   const [tableData, setTableData] = useState(DUMMY_DATA);
   const [editRowKey, setEditRowKey] = useState("");
   const [form] = Form.useForm();
+  const [query, setQuery] = useState("");
+
+  const filteredData = tableData.filter((item) => {
+    return (
+      item.title.toLowerCase().includes(query.toLowerCase) ||
+      item.description.toLowerCase().includes(query.toLowerCase())
+    );
+  });
 
   const handleDelete = (value) => {
     const data = [...tableData];
@@ -48,16 +48,33 @@ const DataTable = () => {
     return record.key === editRowKey;
   };
 
-  const cancel = () => {};
-  const save = () => {};
+  const cancel = () => {
+    setEditRowKey("");
+  };
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      console.log(row);
+      const newData = [...tableData];
+      const index = newData.findIndex((item) => key === item.key);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, { ...item, ...row });
+        setTableData(newData);
+        setEditRowKey("");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const edit = (record) => {
     form.setFieldValue({
-      Title: "",
-      Description: "",
-      Due_Date: "",
-      Tag: "",
-      Status: "",
+      title: "",
+      description: "",
+      duedate: "",
+      tag: "",
+      status: "",
       ...record,
     });
     setEditRowKey(record.key);
@@ -104,9 +121,9 @@ const DataTable = () => {
       ],
     },
     {
-      title: "Due_Date",
-      dataIndex: "dueDate",
-      key: "dueDate",
+      title: "Due Date",
+      dataIndex: "duedate",
+      key: "duedate",
       editable: true,
       rules: [],
     },
@@ -191,12 +208,12 @@ const DataTable = () => {
       onCell: (record) => ({
         record,
         dataIndex: col.dataIndex,
-        Title: col.Title,
+        title: col.title,
         editing: isEditing(record),
-        Description: col.Description,
-        Due_Date: col.Due_Date,
-        Tag: col.Tag,
-        Status: col.Status,
+        description: col.description,
+        duedate: col.duedate,
+        tag: col.tag,
+        status: col.status,
       }),
     };
   });
@@ -230,50 +247,52 @@ const DataTable = () => {
       </td>
     );
   };
-  //   const EditableCell = ({
-  //     editing,
-  //     dataIndex,
-  //     Title,
-  //     record,
-  //     children,
-  //     column,
-  //     ...restProps
-  //   }) => {
-  //     const input = (
-  //       <Form.Item name={dataIndex} rules={column.rules}>
-  //         {column.type === "tags" ? (
-  //           <Select mode="tags" style={{ width: "100%" }} />
-  //         ) : column.type === "select" ? (
-  //           <Select>
-  //             {column.data.map((status) => (
-  //               <Select.Option key={status} value={status}>
-  //                 {status}
-  //               </Select.Option>
-  //             ))}
-  //           </Select>
-  //         ) : (
-  //           <Input />
-  //         )}
-  //       </Form.Item>
-  //     );
+  const addTodoHandler = (item) => {
+    const updatedData = [
+      ...tableData,
+      {
+        key: item.title,
+        timestampCreated: item.timestampCreated,
+        title: item.title,
+        description: item.description,
+        duedate: item.duedate,
+        tag: item.tag,
+        status: item.status,
+      },
+    ];
+    setTableData(updatedData);
+  };
 
-  //     return <td {...restProps}>{editing ? input : children}</td>;
-  //   };
+  const searchHandler = (str) => {
+    setQuery(str);
+  };
 
+  const queryHandler = (q) => {
+    console.log(q);
+    setQuery(q);
+  };
+  
   return (
-    <Form form={form} component={false}>
-      <Table
-        columns={mergedColumns}
-        dataSource={tableData}
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        pagination={{ pageSize: 5 }}
+    <>
+      <NavBar
+        onAdd={addTodoHandler}
+        onChange={searchHandler}
+        onQueryChange={queryHandler}
       />
-    </Form>
+      <Form form={form} component={false}>
+        <Table
+          columns={mergedColumns}
+          dataSource={filteredData}
+          components={{
+            body: {
+              cell: EditableCell,
+            },
+          }}
+          bordered
+          pagination={{ pageSize: 5 }}
+        />
+      </Form>
+    </>
   );
 };
 

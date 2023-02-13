@@ -1,0 +1,61 @@
+.form-container {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px #ddd;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+.form-item label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.form-item input,
+.form-item textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form-item select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  background-color: #fff;
+}
+
+.ant-form-item-control-input-content {
+  width: 100%;
+}
+
+.form-item .ant-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.form-item .ant-btn:hover {
+  background-color: #40a9ff;
+}
