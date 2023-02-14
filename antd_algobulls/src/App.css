@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+  background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0PDQ0NDQ0HCA0PDQ8NDQcNFREWFhURExMYHSggGBolGxMTITEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDw0NFSsZFRkrNys3Ky0tLTctKysrKzcrKys3Ky0rLTcrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAZAAEBAQEBAQAAAAAAAAAAAAAAAQIDBAX/xAAqEAEBAAIABAYBBAMBAAAAAAAAAQIRAxIhUQQTMUFhoZFicbHwFMHhgf/EABkBAQEBAQEBAAAAAAAAAAAAAAABAgUGA//EABYRAQEBAAAAAAAAAAAAAAAAAAABQf/aAAwDAQACEQMRAD8A9Yuh6V8k0aUEpoAZBRUQURKigrIKCILpYJWV0oIhpQZpoAZAAAUYqCgiKLoRBdKIhpQZqaUBlxUEdgAEoLogyiro0IhpRUqSGlBkAEABKCgiCgzQXQMoLpRKyaaBmpo0oIAAADIAJQUGHIUR2CACUAGQFEQUEqKGlZBYaEQaSCBpQRFAZoAMgAlAUZqCmhEVdFEQXQIRNKDNAFZchRl2EFBKC6IMoulBE0oCUgAyACAaFSgZXX+nOZaEdAl2ozQXQMoaUA0AMUAEBQQRQQRVGaiNaBly0aZx4ndtHYABKAKyAoiCglQXRoZBUENCZZMXISrxL1/vRgBlZdOuOe3EErpz9b2/htxamWhl0DG7UQAGaC6NCIq6BKkhpQQAEoAMPFGplpw2I7D1Tiz9jzJ3eVYJXqxy37rHlaw4lnyMvS1pw86Lz0R20OPmWe6Xj32gldx5bxMu5eJl3Vl6Odzzu79Oc4izOCNBzTusEqDQIiNAzUUBlZWrn/1nTFzk9xHfHKX4XPOYzd9J6vJeN2n5cPEcbKzVvS+wzX07ZPWxXyuHdyfitzKz0tgj6NykYy4sePzL3XnEenzLfdHnmULn2EerzNevp8sXxPaPNbb6oJXp/wAn9/pHnBhvRp4hHYe3Rp5ceLlPf89XbDxM95+BK68ppPPw7/VTz8P7BlrlWMXxGPa/TP8AkztRDxGXLN+9rpjqyWe/WPH4nic1nTUk6N8Dj3HHWt9uolenlXlcp4n9P2s8Tj2oy6cpypOPh3+q3M8b6WKjPKsjV/LN5hKvNZ7k43xv6Y5KclEb8/8AT9p5/wCn7Z5KXEZrfn/p+2bxsviJyVjLKT3/AB1GVtt9ammLxe0Zud7g6XTjxsp6QcqMV14efTXbo1z1ywayojXNe7UzYUR1xylXo4RRHXnhzxyBK7c07jiDDkac5lY6Y5y/COwaXTWjQlZJGunwnNO8GQOeJ5kEYz9fpeGZZS+xM5PYSt6NJ5nweZO1GV0aPMnyszx7qiy2els/9bx42c99/uxud1mhK6zxF95+K3PEY9q4aNCO18R2n5cs+LcunSRNGhmpbb69UW2d0ucGQTzJ2PMnYFcrXTzJ2ZyuPtOvsMU4aZ+reNx/u2bj19Zd0RvGdF0vDxsn8NaEY0um9JdT1EZ0aS8Sfuz5nwJW9DPPQYeUBHYAUSqkVIMqAIACUAGRUVUABKst7rOJl3ZBG/My7s22+6AzWgBkAAAGKACDXPe9ZBGrne9QDEABKoAw4AI7AqKJVSKkGVAEABKADIqKqAAlABkAErQAyAAADFABAARQDGQAKoAw4AI7AqKJVSKkGVAEABKADIqKqAAlABkAErQAyAAADFABAARQDGQAKoAw4AI7AqAlaSAMqAIACUAGRQVAASgAyACVoAZAAABigAgKCABjIAFUAYf/2Q==");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
