@@ -5,34 +5,64 @@ import NavBar from "./NavBar";
 const DUMMY_DATA = [
   {
     key: "1",
-    timestampCreated: "2022-12-01 10:00:00",
+    timestampCreated: "2022-12-09",
     title: "Build a website",
     description: "Build a website for a small business",
     duedate: "2022-12-15",
     tag: ["website", "business"],
-    status: "OPEN",
+    status: "DONE",
   },
   {
     key: "2",
-    timestampCreated: "2022-12-01 10:30:00",
+    timestampCreated: "2021-12-20",
+    title: "Learn Crypography basics",
+    description: "Encryption/description and key sharing algorithms",
+    duedate: "2021-12-23",
+    tag: ["Cryptography", "College"],
+    status: "OPEN",
+  },
+  {
+    key: "3",
+    timestampCreated: "2023-02-14",
     title: "Design a logo",
     description: "Design a logo for a new brand",
-    duedate: "2022-12-20",
+    duedate: "2023-03-16",
     tag: ["logo", "branding"],
+    status: "WORKING",
+  },
+  {
+    key: "4",
+    timestampCreated: "2023-01-30",
+    title: "Graph Questions",
+    description: "practice binary search tree interview questions",
+    duedate: "2023-03-17",
+    tag: ["Data Structure"],
     status: "OPEN",
+  },
+  {
+    key: "5",
+    timestampCreated: "2020-09-19",
+    title: "groceries",
+    description: "Get some fruits and salad",
+    duedate: "2020-10-18",
+    tag: ["healthy"],
+    status: "OVERDUE",
   },
 ];
 
-const DataTable = () => {
+const DataTable = (props) => {
   const [tableData, setTableData] = useState(DUMMY_DATA);
   const [editRowKey, setEditRowKey] = useState("");
   const [form] = Form.useForm();
   const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("");
+  const [sortKey, setSortKey] = useState(false);
 
-  const filteredData = tableData.filter((item) => {
+  let filteredData = tableData.filter((item) => {
     return (
-      item.title.toLowerCase().includes(query.toLowerCase) ||
-      item.description.toLowerCase().includes(query.toLowerCase())
+      (item.title.toLowerCase().includes(query.toLowerCase) ||
+        item.description.toLowerCase().includes(query.toLowerCase())) &&
+      item.status.toLowerCase().includes(status.toLowerCase())
     );
   });
 
@@ -80,6 +110,17 @@ const DataTable = () => {
     setEditRowKey(record.key);
   };
 
+  const sortColumn = (col) => {
+    const sortedData = [...tableData];
+    if (sortKey) {
+      sortedData.sort((a, b) => a[col].localeCompare(b[col]));
+    } else {
+      sortedData.sort((a, b) => b[col].localeCompare(a[col]));
+    }
+    setSortKey((prev) => !prev);
+    setTableData(sortedData);
+  };
+
   const columns = [
     {
       title: "Timestamp Created",
@@ -87,6 +128,13 @@ const DataTable = () => {
       key: "timestampCreated",
       editable: false,
       rules: [],
+      onHeaderCell: () => {
+        return {
+          onClick: () => {
+            sortColumn("timestampCreated");
+          },
+        };
+      },
     },
     {
       title: "Title",
@@ -103,6 +151,13 @@ const DataTable = () => {
           message: "Title length should not exceed 100 characters",
         },
       ],
+      onHeaderCell: () => {
+        return {
+          onClick: () => {
+            sortColumn("title");
+          },
+        };
+      },
     },
     {
       title: "Description",
@@ -119,6 +174,13 @@ const DataTable = () => {
           message: "Description length should not exceed 1000 characters",
         },
       ],
+      onHeaderCell: () => {
+        return {
+          onClick: () => {
+            sortColumn("description");
+          },
+        };
+      },
     },
     {
       title: "Due Date",
@@ -126,6 +188,13 @@ const DataTable = () => {
       key: "duedate",
       editable: true,
       rules: [],
+      onHeaderCell: () => {
+        return {
+          onClick: () => {
+            sortColumn("duedate");
+          },
+        };
+      },
     },
     {
       title: "Tag",
@@ -247,6 +316,7 @@ const DataTable = () => {
       </td>
     );
   };
+
   const addTodoHandler = (item) => {
     const updatedData = [
       ...tableData,
@@ -271,13 +341,18 @@ const DataTable = () => {
     console.log(q);
     setQuery(q);
   };
-  
+  const statusHandler = (s) => {
+    console.log(s);
+    setStatus(s);
+  };
+
   return (
     <>
       <NavBar
         onAdd={addTodoHandler}
         onChange={searchHandler}
         onQueryChange={queryHandler}
+        onStatusChange={statusHandler}
       />
       <Form form={form} component={false}>
         <Table
@@ -289,7 +364,7 @@ const DataTable = () => {
             },
           }}
           bordered
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 10 }}
         />
       </Form>
     </>
